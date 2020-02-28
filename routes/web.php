@@ -88,3 +88,14 @@ Route::get('/listaRegiones', function(){
 
 });
 
+
+
+
+Route::get('/listaDestinos', function(){
+	$destinos = DB::select('SELECT destNombre, destPrecio, r.regNombre FROM destinos d, regiones r WHERE r.regID = d.regID');
+
+				// este es el nombre de mi blade
+	return view('listarDestinos', ['destinos'=>$destinos]);
+
+});
+
