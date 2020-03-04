@@ -22,10 +22,14 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+          <!-- en # de href se crea una peticion -->
+          <a class="nav-link" href="/adminRegiones">Admin regiones</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/adminDestinos">Admin destinos</a>
         </li>
         <li class="nav-item">
           <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>

@@ -78,6 +78,8 @@ Route::post('/procesa', function(){
 
 #### RAW SQL #### 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 Route::get('/listaRegiones', function(){
 	$regiones = DB::select('SELECT regID, regNombre FROM regiones');
@@ -98,4 +100,50 @@ Route::get('/listaDestinos', function(){
 	return view('listarDestinos', ['destinos'=>$destinos]);
 
 });
+
+###### QUERY BUILDER ######
+
+Route::get('/adminRegiones', function(){
+	$regiones = DB::table('regiones')
+						->select('regID', 'regNombre')
+						->get();
+	// dd($regiones);
+				// este es el nombre de mi blade
+	return view('adminRegiones', ['regiones'=>$regiones]);
+
+});
+
+
+// Esta es para ver/mostrar la peticion
+Route::view('/agregarRegion', 'formAgregarRegion');
+
+//Esta para procesar el form
+//El Request $request: adentro del Closure es el tipo de dato que va a recibir
+Route::post('/agregarRegion', function(Request $request){
+	// $regNombre = $_POST['regNombre'];
+	
+	//$request->input: Captura todos datos de un formulario que no sea type File
+	$regNombre = $request->input('regNombre');
+	
+	DB::table('regiones')->insert(['regNombre'=>$regNombre]);
+
+	//redireccion a una peticion, NO a una vista
+	return redirect('/adminRegiones')->with('mensaje', 'Region: '.$regNombre.' agregada correctamente');
+	//mensaje, es una variable de sesion
+});
+
+
+//Capturo dato que viene desde la peticion - adminRegiones.blade
+//Aca solo va con un par de llaves porque en Routing hay otro sistema, que es para capturar un dato obligatorio. El nombre puede ser cualquiera que quiera, solo estamos usando un metodo descriptivo para variables.
+Route::get('/modificarRegion/{regID}', function($regID){
+
+	$region = DB::table('regiones')
+				->select('regID', 'regNombre')
+				->where('regID', $regID)
+				->get();
+	return viene('/formModificarRegion', ['region'=>$region);
+
+
+});
+
 
