@@ -9,6 +9,7 @@
 		<div class="alert bg-light p3">
 			
 			<form method="post" action="/agregarRegion">
+				
 				@csrf
 				Nombre region:
 				<br>

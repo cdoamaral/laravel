@@ -141,9 +141,31 @@ Route::get('/modificarRegion/{regID}', function($regID){
 				->select('regID', 'regNombre')
 				->where('regID', $regID)
 				->get();
-	return viene('/formModificarRegion', ['region'=>$region);
+				// dd($region);
+	return view ('/formModificarRegion', ['region'=>$region]);
 
 
 });
+
+
+
+Route::post('/modificarRegion/', function(Request $request){
+	$regNombre = $request->input('regNombre');
+	$regID = $request->input('regID');
+
+			DB::table('regiones')
+            ->where('regID', $regID)
+            ->update(['regNombre' => $regNombre]);
+
+
+
+	//return view ('/formModificarRegion', ['region'=>$region]);
+	return redirect('/adminRegiones')->with('mensaje', 'Region modificada correctamente');
+
+
+});
+
+
+
 
 
