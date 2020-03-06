@@ -33,11 +33,78 @@
 						<a href="/modificarRegion/{{$region->regID}}" class="btn btn-dark"> Modificar </a>
 					</td>
 					<td>
-						<a href="" class="btn btn-dark"> Eliminar </a>
+						<a href="/eliminarRegion/{{$region->regID}}" name="{{$region->regNombre}}" onclick="return laURL(this.href, this.name)" class="btn btn-dark"> Eliminar </a>
 					</td>
 				</tr>
 				@endforeach
 			</tbody>
 		</table>
+
+
+<script>
+	
+function laURL(h, n){
+	function(e){
+		let url = h;
+		let region = n;
+		e.preventDefault();
+
+
+Swal.fire({
+			  title: '¿Esta seguro?',
+			  text: "Esta accion no se puede deshacer",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  cancelButtonColor: '#d33',
+			  cancelButtonText: 'No eliminar',
+			  confirmButtonColor: '#d00',
+			  confirmButtonText: 'Si, borralo'
+			}).then((result) => {
+			  if (!result.value) {
+			    window.location = '/adminRegiones';
+			    return false;
+			  }
+			   window.location = url;
+			   return true;
+			})
+
+
+	}
+
+
+}
+/*
+	let link = document.querySelector('#link{{$region->regID}}');
+	
+
+
+	link.onclick = function(e){
+		let url = e.target.href;	
+		e.preventDefault();
+			Swal.fire({
+			  title: '¿Esta seguro?',
+			  text: "Esta accion no se puede deshacer",
+			  icon: 'warning',
+			  showCancelButton: true,
+			  cancelButtonColor: '#d33',
+			  cancelButtonText: 'No eliminar',
+			  confirmButtonColor: '#d00',
+			  confirmButtonText: 'Si, borralo'
+			}).then((result) => {
+			  if (!result.value) {
+			    window.location = '/adminRegiones';
+			    return false;
+			  }
+			   window.location = url;
+			   return true;
+			})
+
+
+	}
+
+*/
+
+</script>
+
 
 	@endsection

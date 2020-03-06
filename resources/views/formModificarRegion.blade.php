@@ -11,13 +11,13 @@
 		<form action="/modificarRegion" method="post">
 @csrf
 			<!-- Para generar un token temporal. Es una directiva blade-->
-	@foreach($region as $region)
+
 		
-			<input type="hidden" name="regID" value="{{$region->regID}}" class="form-control"> 
+			<input type="hidden" name="regID" value="{{$region->regID}}"> 
 			Nombre:
 			<br>
 			<input type="text" name="regNombre" value="{{$region->regNombre}}" class="form-control">
-	@endforeach
+
 			<br>
 			<button class="btn btn-warning">Modificar</button>
 

@@ -119,13 +119,16 @@ Route::view('/agregarRegion', 'formAgregarRegion');
 
 //Esta para procesar el form
 //El Request $request: adentro del Closure es el tipo de dato que va a recibir
+//Request es un objeto que viene de http
 Route::post('/agregarRegion', function(Request $request){
 	// $regNombre = $_POST['regNombre'];
 	
 	//$request->input: Captura todos datos de un formulario que no sea type File
+	//para capturar archivos $request->file
 	$regNombre = $request->input('regNombre');
 	
-	DB::table('regiones')->insert(['regNombre'=>$regNombre]);
+	DB::table('regiones')
+						->insert(['regNombre'=>$regNombre]);
 
 	//redireccion a una peticion, NO a una vista
 	return redirect('/adminRegiones')->with('mensaje', 'Region: '.$regNombre.' agregada correctamente');
@@ -140,7 +143,7 @@ Route::get('/modificarRegion/{regID}', function($regID){
 	$region = DB::table('regiones')
 				->select('regID', 'regNombre')
 				->where('regID', $regID)
-				->get();
+				->first();
 				// dd($region);
 	return view ('/formModificarRegion', ['region'=>$region]);
 
@@ -149,7 +152,7 @@ Route::get('/modificarRegion/{regID}', function($regID){
 
 
 
-Route::post('/modificarRegion/', function(Request $request){
+Route::post('/modificarRegion', function(Request $request){
 	$regNombre = $request->input('regNombre');
 	$regID = $request->input('regID');
 
