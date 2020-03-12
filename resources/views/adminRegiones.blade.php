@@ -33,7 +33,7 @@
 						<a href="/modificarRegion/{{$region->regID}}" class="btn btn-dark"> Modificar </a>
 					</td>
 					<td>
-						<a href="/eliminarRegion/{{$region->regID}}" name="{{$region->regNombre}}" onclick="return laURL(this.href, this.name)" class="btn btn-dark"> Eliminar </a>
+					  	<a href="/eliminarRegion/{{$region->regID}}" class="btn btn-danger eliminar">Eliminar</a>
 					</td>
 				</tr>
 				@endforeach
@@ -42,7 +42,36 @@
 
 
 <script>
-	
+    window.onload = function(){
+            let link = document.querySelectorAll('.eliminar');
+            console.log(link);
+            link.forEach(function(links){
+                links.addEventListener('click', function(e){
+                    let url = e.target.href;
+                    e.preventDefault();
+                    Swal.fire({
+                        title: '¿Está seguro?',
+                        text: "Esta acción no se puede deshacer",
+                        icon: 'warning',
+                        showCancelButton: true,
+                        cancelButtonColor: '#5baf8b',
+                        cancelButtonText: 'No eliminar',
+                        confirmButtonColor: '#d00',
+                        confirmButtonText: 'Si, lo quiero eliminar!'
+                    }).then( (result) => {
+                        if ( !result.value) {
+                            window.location = '/adminRegiones';
+                            return;
+                        }
+                        window.location = url;
+                    })
+                });
+            });
+        }
+            
+
+
+/*	
 function laURL(h, n){
 	function(e){
 		let url = h;
@@ -73,6 +102,8 @@ Swal.fire({
 
 
 }
+
+*/
 /*
 	let link = document.querySelector('#link{{$region->regID}}');
 	

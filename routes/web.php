@@ -170,5 +170,13 @@ Route::post('/modificarRegion', function(Request $request){
 
 
 
+####TEST ELOQUENT
+use App\Region;
+Route::get('/regiones', function(){
+
+	$regiones = Region::all();
+	dd($regiones);
+
+});
 
 
